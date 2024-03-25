@@ -2,17 +2,18 @@
 import express from "express"
 import { sequelize } from "./DB/db.js";
 import { AuthRoutes } from "./Routes/Auth.routes.js";
+import { categoryRoutes } from "./Routes/Category.routes.js";
 
 const app = express();
 app.use(express.json());
 
 app.use('/users',AuthRoutes)
+app.use('/category',categoryRoutes)
+
 
 app.get('/',(req,res)=>{
     res.json("helo");
 })
-
-
 
 
 
