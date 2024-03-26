@@ -2,6 +2,7 @@
 
 import { faker } from '@faker-js/faker';
 import { category } from '../Models/Category.model.js';
+import UserFavouriteCategory from '../Models/UsersCatergory.model.js';
 
 
 export const CategoryAdd = async (req,res)=>{
@@ -30,10 +31,48 @@ export const CategoryGet = async (req,res)=>{
           offset,
           limit
         });
-    
         res.status(200).json(categories);
       } catch (error) {
         console.error('Error fetching categories:', error);
         res.status(500).json({ error: 'Internal server error' });
       }
+}
+
+export const favCategory = async (req,res) =>{
+  const { favCategory } = req.body;
+  try {
+    const newUserFavouriteCategory = await UserFavouriteCategory.create({
+      userId: req.user.id,
+      favCategory
+    });
+    res.status(201).json({
+      message: 'User favourite category saved successfully',
+      userFavouriteCategory: newUserFavouriteCategory
+    });
+  } catch (error) {
+    console.error('Error saving user favourite category:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
+export const favCategoryGet = async (req,res) =>{
+  const userId = req.user.id;
+
+  try {
+    const favoriteCategories = await UserFavouriteCategory.findAll({
+      where: { userId }
+    });
+
+
+
+    if (!favoriteCategories || favoriteCategories.length === 0) {
+      return res.status(404).json({ message: 'Categories not selected yet' });
+    }
+
+    return res.json({ favoriteCategories });
+  } catch (error) {
+    console.error('Error fetching favorite categories:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 }

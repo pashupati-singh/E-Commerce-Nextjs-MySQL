@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { AuthContextProvider } from "./AuthContext/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,18 +25,22 @@ export default function RootLayout({ children }) {
           <Link href="/login">
             <div className="text-white">Login</div>
           </Link>
+          {/* <ProtectedRoute> */}
           <Link href="/category">
             <div className="text-white">Category</div>
           </Link>
+          {/* </ProtectedRoute> */}
           <Link href="/signup">
             <div className="text-white">SignUp</div>
           </Link>
         </div>
       </div>
     </nav>
-
+<AuthContextProvider>
 
         {children}
+</AuthContextProvider>
+
         </body>
     </html>
   );

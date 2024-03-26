@@ -9,4 +9,5 @@ export const category = sequelize.define('category',{
         primaryKey:true
     },
     category:Sequelize.STRING,
+    userId:Sequelize.STRING
 })

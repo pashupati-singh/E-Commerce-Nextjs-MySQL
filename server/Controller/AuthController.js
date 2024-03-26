@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"
 import { users } from "../Models/Signup.model.js";
+import jwt from "jsonwebtoken"
 
 const isString = (value) =>{
     if(value === undefined || value.length === 0){
@@ -30,6 +31,10 @@ export const signUp = async(req,res) =>{
     }
 }
 
+const generateAccessToken = (id,name) =>{
+    return jwt.sign({userId : id , name},"privateKey");
+}
+
 export const Login = async(req,res) =>{
  try {
     const{email,password} = req.body;
@@ -41,7 +46,7 @@ export const Login = async(req,res) =>{
            if(err){
             throw new Error("something went wrong")
            }else if(result){
-            return res.json({msg:"Logged in Succesful",token : "aghdhjbdjagha"})
+            return res.json({success:true,message:"you login successful",token:generateAccessToken(user[0].id,user[0].name),name:user[0].name})
            }
         })
     }else{
