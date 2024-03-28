@@ -29,10 +29,13 @@ PASSWORD=<your_mysql_password>
 
 # server
 npm run server
+
 Access the application in your web browser at http://localhost:8080.
 
 # client
 npm run dev
+
+Access the application in your web browser at http://localhost:3000.
 
 # Usage
 Authentication Routes:
