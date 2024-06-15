@@ -4,5 +4,5 @@ dotenv.config()
 
 export const sequelize = new Sequelize("turnover","root",process.env.PASSWORD,{
     dialect:'mysql',
-    host:process.env.HOST
+    host:"localhost"
 })
